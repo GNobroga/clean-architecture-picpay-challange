@@ -3,10 +3,7 @@ package br.com.picpay.application.usecaseimpl;
 import br.com.picpay.application.gateway.ITransferGateway;
 import br.com.picpay.core.domain.Transaction;
 import br.com.picpay.core.domain.Wallet;
-import br.com.picpay.core.exception.InternalServerErrorException;
-import br.com.picpay.core.exception.NotFoundException;
-import br.com.picpay.core.exception.NotificationException;
-import br.com.picpay.core.exception.TransferException;
+import br.com.picpay.core.exception.*;
 import br.com.picpay.core.exception.enums.ErrorCodeEnum;
 import br.com.picpay.usecase.*;
 
@@ -14,29 +11,34 @@ import java.math.BigDecimal;
 
 public class TransferUseCase implements ITransferUseCase  {
 
-    private IFindWalletByTaxNumberUseCase findWalletByTaxNumberUseCase;
+    private final IFindWalletByTaxNumberUseCase findWalletByTaxNumberUseCase;
 
-    private ITransactionValidateUseCase transactionValidateUseCase;
+    private final ITransactionValidateUseCase transactionValidateUseCase;
 
-    private ICreateTransactionUseCase createTransactionUseCase;
+    private final ICreateTransactionUseCase createTransactionUseCase;
 
-    private ITransferGateway transferGateway;
+    private final ITransferGateway transferGateway;
 
-    private IUserNotificationUseCase userNotificationUseCase;
+    private final IUserNotificationUseCase userNotificationUseCase;
 
-    public TransferUseCase(IFindWalletByTaxNumberUseCase findWalletByTaxNumberUseCase, ITransactionValidateUseCase transactionValidateUseCase, ICreateTransactionUseCase createTransactionUseCase, ITransferGateway transferGateway, IUserNotificationUseCase userNotificationUseCase) {
+    private final ITransactionPinValidateUseCase transactionPinValidateUseCase;
+
+    public TransferUseCase(IFindWalletByTaxNumberUseCase findWalletByTaxNumberUseCase, ITransactionValidateUseCase transactionValidateUseCase, ICreateTransactionUseCase createTransactionUseCase, ITransferGateway transferGateway, IUserNotificationUseCase userNotificationUseCase, ITransactionPinValidateUseCase transactionPinValidateUseCase) {
         this.findWalletByTaxNumberUseCase = findWalletByTaxNumberUseCase;
         this.transactionValidateUseCase = transactionValidateUseCase;
         this.createTransactionUseCase = createTransactionUseCase;
         this.transferGateway = transferGateway;
         this.userNotificationUseCase = userNotificationUseCase;
+        this.transactionPinValidateUseCase = transactionPinValidateUseCase;
     }
 
     @Override
-    public boolean transfer(String fromTaxNumber, String toTaxNumber, BigDecimal value) throws InternalServerErrorException, TransferException, NotFoundException, NotificationException {
+    public boolean transfer(String fromTaxNumber, String toTaxNumber, BigDecimal value, String pin) throws InternalServerErrorException, TransferException, NotFoundException, NotificationException, PinException {
 
         Wallet from = findWalletByTaxNumberUseCase.find(fromTaxNumber);
         Wallet to = findWalletByTaxNumberUseCase.find(toTaxNumber);
+
+        transactionPinValidateUseCase.validate(from.getTransactionPin());
 
         from.transferValue(value);
         to.receiveValue(value);

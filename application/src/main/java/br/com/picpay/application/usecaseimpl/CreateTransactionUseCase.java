@@ -8,7 +8,12 @@ import br.com.picpay.usecase.ICreateTransactionUseCase;
 
 public class CreateTransactionUseCase implements ICreateTransactionUseCase  {
 
-    private ICreateTransactionGateway createTransactionGateway;
+    private final ICreateTransactionGateway createTransactionGateway;
+
+    public CreateTransactionUseCase(ICreateTransactionGateway createTransactionGateway) {
+        this.createTransactionGateway = createTransactionGateway;
+    }
+
     @Override
     public Transaction create(Transaction transaction) throws TransferException {
         var transactionSaved = createTransactionGateway.create(transaction);

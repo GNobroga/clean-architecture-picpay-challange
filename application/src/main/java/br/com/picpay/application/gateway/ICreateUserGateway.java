@@ -5,5 +5,5 @@ import br.com.picpay.core.domain.User;
 import br.com.picpay.core.domain.Wallet;
 
 public interface ICreateUserGateway {
-    boolean create(User record, Wallet wallet, TransactionPin transactionPin);
+    boolean create(User record, Wallet wallet);
 }

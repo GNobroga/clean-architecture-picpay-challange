@@ -6,7 +6,7 @@ import br.com.picpay.core.exception.enums.ErrorCodeEnum;
 import br.com.picpay.usecase.IUserAuthenticateUseCase;
 public class UserAuthenticationUseCase implements IUserAuthenticateUseCase  {
 
-    private IUserAuthenticationGateway userNotificationGateway;
+    private final IUserAuthenticationGateway userNotificationGateway;
 
     public UserAuthenticationUseCase(IUserAuthenticationGateway userNotificationGateway) {
         this.userNotificationGateway = userNotificationGateway;

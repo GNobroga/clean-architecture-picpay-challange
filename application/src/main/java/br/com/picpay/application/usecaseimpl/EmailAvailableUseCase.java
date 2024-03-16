@@ -5,7 +5,7 @@ import br.com.picpay.usecase.IEmailAvailableUseCase;
 
 public class EmailAvailableUseCase implements IEmailAvailableUseCase {
 
-    private IEmailAvailableGateway emailAvailableGateway;
+    private final IEmailAvailableGateway emailAvailableGateway;
 
     public EmailAvailableUseCase(IEmailAvailableGateway emailAvailableGateway) {
         this.emailAvailableGateway = emailAvailableGateway;

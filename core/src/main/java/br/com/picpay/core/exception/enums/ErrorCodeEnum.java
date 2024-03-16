@@ -12,7 +12,10 @@ public enum ErrorCodeEnum {
     TRP0001("Pin invalid", "TRP-0001"),
     WA0001("Wallet not found", "WA-0001"),
     N0001("An error occurred while sending the notification to the recipient user", "N-0001"),
-    ATH0001("An authentication error occurred", "ATH-0001");
+    ATH0001("An authentication error occurred", "ATH-0001"),
+
+    PIN0001("Pin is blocked", "PIN-0001"),
+    PIN0002("Incorrect pin, %d attempt(s) remaining", "PIN-0002");
     private String message;
 
     private String code;
@@ -20,6 +23,10 @@ public enum ErrorCodeEnum {
     private ErrorCodeEnum(String message, String code) {
         this.message = message;
         this.code = code;
+    }
+
+    public static String pin0002GetMessage(Integer attempt) {
+        return PIN0002.message.formatted(attempt);
     }
 
     public String getMessage() {

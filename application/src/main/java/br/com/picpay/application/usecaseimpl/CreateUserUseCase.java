@@ -15,11 +15,11 @@ import java.math.BigDecimal;
 
 public class CreateUserUseCase implements ICreateUserUseCase {
 
-    private ITaxNumberAvailableUseCase taxNumberAvailableUseCase;
+    private final ITaxNumberAvailableUseCase taxNumberAvailableUseCase;
 
-    private IEmailAvailableUseCase emailAvailableUseCase;
+    private final IEmailAvailableUseCase emailAvailableUseCase;
 
-    private ICreateUserGateway createUserGateway;
+    private final ICreateUserGateway createUserGateway;
 
     public CreateUserUseCase(ITaxNumberAvailableUseCase taxNumberAvailableUseCase, IEmailAvailableUseCase emailAvailableUseCase, ICreateUserGateway createUserGateway) {
         this.taxNumberAvailableUseCase = taxNumberAvailableUseCase;
@@ -37,7 +37,7 @@ public class CreateUserUseCase implements ICreateUserUseCase {
             throw new EmailException(ErrorCodeEnum.ON0003.getMessage(), ErrorCodeEnum.ON0003.getCode());
         }
 
-        if(!createUserGateway.create(user, new Wallet(BigDecimal.ZERO, user),new TransactionPin(user, pin))) {
+        if(!createUserGateway.create(user, new Wallet(BigDecimal.ZERO, new TransactionPin("ds") ,user))) {
             throw new InternalServerErrorException(ErrorCodeEnum.ON0004.getMessage(), ErrorCodeEnum.ON0004.getCode());
         }
     }

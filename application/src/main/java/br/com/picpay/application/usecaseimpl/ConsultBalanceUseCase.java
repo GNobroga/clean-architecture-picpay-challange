@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 public class ConsultBalanceUseCase implements IConsultBalanceUseCase  {
 
-    private IConsultBalanceGateway consultBalanceGateway;
+    private final IConsultBalanceGateway consultBalanceGateway;
 
     public ConsultBalanceUseCase(IConsultBalanceGateway consultBalanceGateway) {
         this.consultBalanceGateway = consultBalanceGateway;

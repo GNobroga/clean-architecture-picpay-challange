@@ -5,7 +5,7 @@ import br.com.picpay.usecase.ITaxNumberAvailableUseCase;
 
 public class TaxNumberAvailableUseCase implements ITaxNumberAvailableUseCase  {
 
-    private ITaxNumberAvailableGateway taxNumberAvailableGateway;
+    private final ITaxNumberAvailableGateway taxNumberAvailableGateway;
 
     public TaxNumberAvailableUseCase(ITaxNumberAvailableGateway taxNumberAvailableGateway) {
         this.taxNumberAvailableGateway = taxNumberAvailableGateway;

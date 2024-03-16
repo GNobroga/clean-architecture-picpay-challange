@@ -8,7 +8,11 @@ import br.com.picpay.usecase.ITransactionValidateUseCase;
 
 public class TransactionValidateUseCase implements ITransactionValidateUseCase {
 
-    private ITransactionValidateGateway transactionValidateGateway;
+    private final ITransactionValidateGateway transactionValidateGateway;
+
+    public TransactionValidateUseCase(ITransactionValidateGateway transactionValidateGateway) {
+        this.transactionValidateGateway = transactionValidateGateway;
+    }
 
     @Override
     public boolean validate(Transaction transaction) throws TransferException {

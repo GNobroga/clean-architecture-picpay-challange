@@ -8,7 +8,7 @@ import br.com.picpay.usecase.IFindWalletByTaxNumberUseCase;
 
 public class FindWalletByNumberUseCase implements IFindWalletByTaxNumberUseCase {
 
-    private IFindWalletByNumberGateway findWalletByNumberGateway;
+    private final IFindWalletByNumberGateway findWalletByNumberGateway;
 
     public FindWalletByNumberUseCase(IFindWalletByNumberGateway findWalletByNumberGateway) {
         this.findWalletByNumberGateway = findWalletByNumberGateway;

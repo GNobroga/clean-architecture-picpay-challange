@@ -6,7 +6,7 @@ import br.com.picpay.usecase.IUserNotificationUseCase;
 
 public class UserNotificationUseCase implements IUserNotificationUseCase {
 
-    private IUserNotificationGateway userNotificationGateway;
+    private final IUserNotificationGateway userNotificationGateway;
 
     public UserNotificationUseCase(IUserNotificationGateway userNotificationGateway) {
         this.userNotificationGateway = userNotificationGateway;
