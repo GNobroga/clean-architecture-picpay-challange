@@ -33,4 +33,16 @@ public class UserMapper {
             request.type()
         );
     }
+    public User toUser(UserEntity entity) throws Exception {
+        return new User(
+                entity.getId(),
+                entity.getEmail(),
+                entity.getPassword(),
+                new TaxNumber(entity.getTaxNumber()),
+                entity.getFullName(),
+                entity.getType(),
+                entity.getCreatedAt(),
+                entity.getUpdatedAt()
+        );
+    }
 }

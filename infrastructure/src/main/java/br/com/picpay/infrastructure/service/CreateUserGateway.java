@@ -11,6 +11,7 @@ import br.com.picpay.infrastructure.repository.UserEntityRepository;
 import br.com.picpay.infrastructure.repository.WalletEntityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static br.com.picpay.infrastructure.utils.Utilities.*;
 
@@ -30,9 +31,8 @@ public class CreateUserGateway implements ICreateUserGateway {
 
     private final WalletEntityRepository walletEntityRepository;
 
-
-
     @Override
+    @Transactional
     public boolean create(User record, Wallet wallet) {
        try {
            log.info("Início da criação do usuário::CreateUserGateway");

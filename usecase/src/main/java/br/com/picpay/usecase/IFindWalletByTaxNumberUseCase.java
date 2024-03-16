@@ -5,5 +5,5 @@ import br.com.picpay.core.exception.NotFoundException;
 
 public interface IFindWalletByTaxNumberUseCase {
 
-    Wallet find(String taxNumber) throws NotFoundException;
+    Wallet find(String taxNumber) throws Exception;
 }

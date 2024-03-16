@@ -15,7 +15,7 @@ public class FindWalletByNumberUseCase implements IFindWalletByTaxNumberUseCase 
     }
 
     @Override
-    public Wallet find(String taxNumber) throws NotFoundException {
+    public Wallet find(String taxNumber) throws Exception {
         var wallet = findWalletByNumberGateway.findByTaxNumber(taxNumber);
 
         if (wallet == null) {
