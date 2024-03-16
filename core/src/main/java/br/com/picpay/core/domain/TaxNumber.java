@@ -23,6 +23,9 @@ public class TaxNumber {
     }
 
     private Boolean isValid(String taxNumber) throws Exception {
+        if (taxNumber == null) {
+            return false;
+        }
 
         if (taxNumber.replaceAll("[^0-9]", "").length() == 11 || taxNumber.replaceAll("[^0-9]", "").length() == 14){
             if (taxNumber.length() == 11){

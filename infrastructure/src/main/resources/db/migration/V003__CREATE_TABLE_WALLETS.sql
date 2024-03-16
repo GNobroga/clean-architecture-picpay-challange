@@ -1,11 +1,11 @@
 CREATE TABLE wallets (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     balance DECIMAL(10, 2) NOT NULL,
-    userId UUID NOT NULL UNIQUE,
-    transactionPinId BIGINT NOT NULL UNIQUE,
-    createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updatedAt DATETIME NULL,
+    user_id UUID NOT NULL UNIQUE,
+    transaction_pin_Id BIGINT NOT NULL UNIQUE,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NULL,
 
-    FOREIGN KEY (userId) REFERENCES users(id),
-    FOREIGN KEY (transactionPinId) REFERENCES transactions_pin(id)
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (transaction_pin_Id) REFERENCES transactions_pin(id)
 );

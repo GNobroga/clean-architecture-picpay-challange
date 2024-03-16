@@ -37,7 +37,7 @@ public class CreateUserUseCase implements ICreateUserUseCase {
             throw new EmailException(ErrorCodeEnum.ON0003.getMessage(), ErrorCodeEnum.ON0003.getCode());
         }
 
-        if(!createUserGateway.create(user, new Wallet(BigDecimal.ZERO, new TransactionPin("ds") ,user))) {
+        if(!createUserGateway.create(user, new Wallet(BigDecimal.ZERO, new TransactionPin(pin) ,user))) {
             throw new InternalServerErrorException(ErrorCodeEnum.ON0004.getMessage(), ErrorCodeEnum.ON0004.getCode());
         }
     }
