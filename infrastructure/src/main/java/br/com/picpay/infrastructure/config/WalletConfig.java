@@ -2,6 +2,7 @@ package br.com.picpay.infrastructure.config;
 
 import br.com.picpay.application.gateway.*;
 import br.com.picpay.application.usecaseimpl.*;
+import br.com.picpay.core.domain.TransactionPin;
 import br.com.picpay.usecase.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,7 +37,12 @@ public class WalletConfig {
 
     @Bean
     IUpdateTransactionPinUseCase updateTransactionPinUseCase() {
-        return null;
+        return new IUpdateTransactionPinUseCase() {
+            @Override
+            public TransactionPin execute(TransactionPin transactionPin) {
+                return null;
+            }
+        };
     }
 
     @Bean
@@ -44,15 +50,8 @@ public class WalletConfig {
         return new TransactionPinValidateUseCase(transactionPinValidateGateway, updateTransactionPinUseCase);
     }
     @Bean
-    ITransferUseCase transferUseCase(IFindWalletByTaxNumberUseCase findWalletByTaxNumberUseCase, ITransactionValidateUseCase transactionValidateUseCase, ICreateTransactionUseCase createTransactionUseCase, ITransferGateway transferGateway, IUserNotificationUseCase userNotificationUseCase, ITransactionPinValidateUseCase transactionPinValidateUseCase) {
-        return new TransferUseCase(
-                findWalletByTaxNumberUseCase,
-                transactionValidateUseCase,
-                createTransactionUseCase,
-                transferGateway,
-                userNotificationUseCase,
-                transactionPinValidateUseCase
-        );
+    ITransferUseCase transferUseCase(ITransferGateway transferGateway) {
+        return new TransferUseCase(transferGateway);
     }
 
 }

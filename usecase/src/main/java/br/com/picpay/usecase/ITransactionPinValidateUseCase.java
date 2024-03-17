@@ -6,5 +6,5 @@ import br.com.picpay.core.exception.TransferException;
 
 public interface ITransactionPinValidateUseCase {
 
-    boolean validate(TransactionPin transactionPin) throws TransferException, PinException;
+    boolean validate(TransactionPin transactionPin, String pin) throws TransferException, PinException;
 }

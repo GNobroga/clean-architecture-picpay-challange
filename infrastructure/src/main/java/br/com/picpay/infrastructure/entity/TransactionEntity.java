@@ -21,11 +21,11 @@ import java.math.BigDecimal;
 public class TransactionEntity extends BaseEntity<Long> {
 
     @JoinColumn(nullable = false)
-    @ManyToOne
+    @ManyToOne(cascade = { CascadeType.REFRESH, CascadeType.MERGE })
     private WalletEntity fromWallet;
 
     @JoinColumn(nullable = false)
-    @ManyToOne
+    @ManyToOne(cascade = { CascadeType.REFRESH, CascadeType.MERGE })
     private WalletEntity toWallet;
 
     @Column(precision = 10, scale = 2, nullable = false)

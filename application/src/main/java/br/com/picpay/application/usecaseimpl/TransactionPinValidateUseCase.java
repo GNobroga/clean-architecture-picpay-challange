@@ -20,12 +20,12 @@ public class TransactionPinValidateUseCase implements ITransactionPinValidateUse
     }
 
     @Override
-    public boolean validate(TransactionPin transactionPin) throws TransferException, PinException {
+    public boolean validate(TransactionPin transactionPin, String pin) throws TransferException, PinException {
         if (transactionPin.isBlocked()) {
             throw new PinException(ErrorCodeEnum.PIN0001.getMessage(), ErrorCodeEnum.PIN0001.getCode());
         }
 
-        if (!transactionPinValidateGateway.validate(transactionPin)) {
+        if (!transactionPinValidateGateway.validate(transactionPin, pin)) {
             transactionPin.decreaseAttempt();
             var transactionPinUpdated = updateTransactionPinUseCase.execute(transactionPin);
             throw new PinException(ErrorCodeEnum.pin0002GetMessage(transactionPinUpdated.getAttempt()), ErrorCodeEnum.PIN0002.getCode());

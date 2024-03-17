@@ -9,6 +9,7 @@ public class TransactionPinMapper {
 
     public TransactionPinEntity toEntity(TransactionPin transactionPin) {
         return TransactionPinEntity.builder()
+                .id(transactionPin.getId())
                 .pin(transactionPin.getPin())
                 .attempt(transactionPin.getAttempt())
                 .blocked(transactionPin.isBlocked())

@@ -25,19 +25,28 @@ public class Wallet {
     public Wallet(Long id, TransactionPin transactionPin, BigDecimal balance, User user, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.transactionPin = transactionPin;
-        this.balance = balance;
+        setBalance(balance);
         this.user = user;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
 
     public Wallet(BigDecimal balance, TransactionPin transactionPin, User user) {
-        this.balance = balance;
+        setBalance(balance);
         this.transactionPin = transactionPin;
         this.user = user;
     }
 
+
     public Wallet() {}
+
+    private void setBalance(BigDecimal balance) {
+        if (balance == null || balance.equals(BigDecimal.ZERO)) {
+            this.balance = new BigDecimal(500);
+        } else {
+            this.balance = balance;
+        }
+    }
 
     public Long getId() {
         return id;
@@ -52,7 +61,7 @@ public class Wallet {
     }
 
     public void receiveValue(BigDecimal value) {
-        this.balance.add(value);
+        this.balance = this.balance.add(value);
     }
 
     public void transferValue(BigDecimal value) throws TransferException {
@@ -64,7 +73,7 @@ public class Wallet {
             throw new TransferException(ErrorCodeEnum.TR0002.getMessage(), ErrorCodeEnum.TR0002.getCode());
         }
 
-        this.balance.subtract(value);
+        this.balance = this.balance.subtract(value);
     }
 
     public User getUser() {
@@ -93,10 +102,6 @@ public class Wallet {
 
     public void setTransactionPin(TransactionPin transactionPin) {
         this.transactionPin = transactionPin;
-    }
-
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
     }
 
     @Override

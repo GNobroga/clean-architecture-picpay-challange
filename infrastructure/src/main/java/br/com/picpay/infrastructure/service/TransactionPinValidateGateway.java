@@ -14,8 +14,8 @@ public class TransactionPinValidateGateway implements ITransactionPinValidateGat
 
     private final TransactionPinEntityRepository transactionPinEntityRepository;
     @Override
-    public boolean validate(TransactionPin transactionPin) {
-        if (transactionPin == null || transactionPin.getId() == null) {
+    public boolean validate(TransactionPin transactionPin, String pin) {
+        if (transactionPin == null || transactionPin.getId() == null || pin == null) {
             return false;
         }
 
@@ -25,7 +25,7 @@ public class TransactionPinValidateGateway implements ITransactionPinValidateGat
             return false;
         }
         //TODO validar isso depois em forma de hash
-        if (!Objects.equals(transactionPin.getPin(), transactionPinSaved.get().getPin())) {
+        if (!Objects.equals(transactionPinSaved.get().getPin(), pin)) {
             return false;
         }
 

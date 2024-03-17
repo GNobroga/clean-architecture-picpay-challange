@@ -30,6 +30,7 @@ public class WalletMapper {
 
     public WalletEntity toEntity(Wallet wallet) {
         return WalletEntity.builder()
+                .id(wallet.getId())
                 .user(userMapper.toEntity(wallet.getUser()))
                 .balance(wallet.getBalance())
                 .transactionPin(transactionPinMapper.toEntity(wallet.getTransactionPin()))

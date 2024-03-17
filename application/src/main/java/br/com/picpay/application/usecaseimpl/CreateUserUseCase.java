@@ -29,14 +29,6 @@ public class CreateUserUseCase implements ICreateUserUseCase {
 
     @Override
     public void create(User user, String pin) throws TaxNumberException, EmailException, TransactionPinException, InternalServerErrorException {
-        if (!taxNumberAvailableUseCase.validate(user.getTaxNumber().getValue())) {
-            throw new TaxNumberException(ErrorCodeEnum.ON0002.getMessage(), ErrorCodeEnum.ON0002.getCode());
-        }
-
-        if (!emailAvailableUseCase.validate(user.getEmail())) {
-            throw new EmailException(ErrorCodeEnum.ON0003.getMessage(), ErrorCodeEnum.ON0003.getCode());
-        }
-
         if(!createUserGateway.create(user, new Wallet(BigDecimal.ZERO, new TransactionPin(pin) ,user))) {
             throw new InternalServerErrorException(ErrorCodeEnum.ON0004.getMessage(), ErrorCodeEnum.ON0004.getCode());
         }

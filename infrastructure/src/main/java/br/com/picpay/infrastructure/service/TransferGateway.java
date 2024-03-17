@@ -26,8 +26,6 @@ public class TransferGateway implements ITransferGateway {
     @Transactional
     public boolean transfer(Transaction transaction) {
         try {
-            walletEntityRepository.save(walletMapper.toEntity(transaction.getFromWallet()));
-            walletEntityRepository.save(walletMapper.toEntity(transaction.getToWallet()));
             transaction.setStatus(TransactionStatusEnum.SUCCESS);
             transactionEntityRepository.save(transactionMapper.toEntity(transaction));
             return true;

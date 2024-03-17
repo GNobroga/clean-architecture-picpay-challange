@@ -23,10 +23,10 @@ public class WalletEntity extends BaseEntity<Long> {
     private BigDecimal balance;
 
     @OneToOne
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "transaction_pin_id" ,nullable = false)
     private TransactionPinEntity transactionPin;
 }
