@@ -1,21 +1,28 @@
 package br.com.picpay.application.usecaseimpl;
 
-import br.com.picpay.application.gateway.IConsultBalanceGateway;
-import br.com.picpay.core.domain.Wallet;
+import br.com.picpay.core.exception.NotFoundException;
+import br.com.picpay.core.exception.enums.ErrorCodeEnum;
 import br.com.picpay.usecase.IConsultBalanceUseCase;
+import br.com.picpay.usecase.IFindWalletByTaxNumberUseCase;
 
 import java.math.BigDecimal;
 
 public class ConsultBalanceUseCase implements IConsultBalanceUseCase  {
 
-    private final IConsultBalanceGateway consultBalanceGateway;
+    private final IFindWalletByTaxNumberUseCase findWalletByTaxNumberUseCase;
 
-    public ConsultBalanceUseCase(IConsultBalanceGateway consultBalanceGateway) {
-        this.consultBalanceGateway = consultBalanceGateway;
+    public ConsultBalanceUseCase(IFindWalletByTaxNumberUseCase findWalletByTaxNumberUseCase) {
+        this.findWalletByTaxNumberUseCase = findWalletByTaxNumberUseCase;
     }
 
     @Override
-    public BigDecimal consult(Wallet wallet) {
-        return consultBalanceGateway.consult(wallet);
+    public BigDecimal consult(String taxNumber) throws Exception {
+        var wallet = findWalletByTaxNumberUseCase.find(taxNumber);
+
+        if (wallet == null) {
+            throw new NotFoundException(ErrorCodeEnum.WA0001.getMessage(), ErrorCodeEnum.WA0001.getCode());
+        }
+
+        return wallet.getBalance();
     }
 }

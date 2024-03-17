@@ -5,7 +5,7 @@ import br.com.picpay.core.domain.Wallet;
 import java.math.BigDecimal;
 
 public interface IConsultBalanceUseCase {
-    BigDecimal consult(Wallet wallet);
+    BigDecimal consult(String taxNumber) throws Exception;
 }
 
 

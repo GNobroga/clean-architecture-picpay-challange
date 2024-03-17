@@ -6,18 +6,35 @@ import br.com.picpay.core.domain.Wallet;
 import br.com.picpay.infrastructure.entity.TransactionPinEntity;
 import br.com.picpay.infrastructure.entity.UserEntity;
 import br.com.picpay.infrastructure.entity.WalletEntity;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class WalletMapper {
+
+    private final UserMapper userMapper;
+
+    private final TransactionPinMapper transactionPinMapper;
 
     public WalletEntity toEntity(Wallet wallet, UserEntity user, TransactionPinEntity transactionPinEntity) {
         return WalletEntity.builder()
                 .user(user)
                 .balance(wallet.getBalance())
                 .transactionPin(transactionPinEntity)
-                .createdAt(user.getCreatedAt())
-                .updatedAt(user.getUpdatedAt())
+                .createdAt(wallet.getCreatedAt())
+                .updatedAt(wallet.getUpdatedAt())
+                .build();
+    }
+
+
+    public WalletEntity toEntity(Wallet wallet) {
+        return WalletEntity.builder()
+                .user(userMapper.toEntity(wallet.getUser()))
+                .balance(wallet.getBalance())
+                .transactionPin(transactionPinMapper.toEntity(wallet.getTransactionPin()))
+                .createdAt(wallet.getCreatedAt())
+                .updatedAt(wallet.getUpdatedAt())
                 .build();
     }
 
@@ -27,6 +44,17 @@ public class WalletMapper {
                 transactionPin,
                 wallet.getBalance(),
                 user,
+                wallet.getCreatedAt(),
+                wallet.getUpdatedAt()
+        );
+    }
+
+    public Wallet toWallet(WalletEntity wallet) throws Exception {
+        return new Wallet(
+                wallet.getId(),
+                transactionPinMapper.toTransactionPin(wallet.getTransactionPin()),
+                wallet.getBalance(),
+                userMapper.toUser(wallet.getUser()),
                 wallet.getCreatedAt(),
                 wallet.getUpdatedAt()
         );

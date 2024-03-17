@@ -24,7 +24,7 @@ public class TransactionPinValidateGateway implements ITransactionPinValidateGat
         if (transactionPinSaved.isEmpty()) {
             return false;
         }
-        //TODO validar isso depois
+        //TODO validar isso depois em forma de hash
         if (!Objects.equals(transactionPin.getPin(), transactionPinSaved.get().getPin())) {
             return false;
         }

@@ -45,7 +45,7 @@ public class TransferUseCase implements ITransferUseCase  {
 
         var transaction = createTransactionUseCase.create(new Transaction(from, to, value));
 
-        transactionValidateUseCase.validate(transaction);
+        transactionValidateUseCase.validate(transaction); // Validando através de um serviço externo
 
         if (!transferGateway.transfer(transaction)) {
             throw new InternalServerErrorException(ErrorCodeEnum.TR0003.getMessage(), ErrorCodeEnum.TR0003.getCode());

@@ -14,6 +14,7 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
+
 security:
   jwt:
     secret: 0412c946-a382-4be6-9245-ebde9ef911dd
@@ -21,3 +22,4 @@ security:
 
 client:
     url: https://run.mocky.io/v3/b2544b83-cf39-417b-9772-74e9441a8ff5
+

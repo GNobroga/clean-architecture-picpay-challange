@@ -36,7 +36,6 @@ public class TransactionPinValidateUseCase implements ITransactionPinValidateUse
         }
 
         updateTransactionPinUseCase.execute(transactionPin);
-
         return true;
     }
 }
